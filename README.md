@@ -1,12 +1,31 @@
-# React + Vite
+# 📝 Task Tracker App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive task management tool built with **React**, **Tailwind CSS**, and **Appwrite**. Users can create, categorize, complete, edit, and delete tasks with a clean, mobile-friendly interface.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Add tasks with title & category (Work, Personal, etc.)
+- View tasks in a styled list
+- Mark tasks as complete (with strike-through text)
+- Edit or delete tasks
+- Fully responsive on mobile and desktop
+- Clean and minimal UI with Tailwind CSS
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- Tailwind CSS
+- Appwrite (Database & APIs)
+- Git & GitHub
+
+## 📦 Setup Instructions
+
+1. Clone the repo  
+   `git clone https://github.com/YOUR_USERNAME/task-tracker-app.git`
+
+2. Install dependencies  
+   `npm install`
+
+3. Set up Appwrite project and environment variables  
+   Create a `.env` file with:
