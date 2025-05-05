@@ -8,4 +8,4 @@ const databases = new Databases(client);
 
 const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const collectionId = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
-export { client, databases, databaseI,collectionId };
+export { client, databases, databaseId,collectionId };
