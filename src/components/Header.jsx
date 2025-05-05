@@ -18,6 +18,7 @@ const Header = ({onAddClick}) => {
                     Work
                 </button>
 
+
                 <button className = "bg-yellow-200 py-1 px-3 font-light rounded-3xl cursor-pointer hover:bg-yellow-400 hover:uppercase focus:bg-yellow-500">
                     Personal
                 </button>

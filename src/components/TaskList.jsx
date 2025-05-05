@@ -6,7 +6,7 @@ const TaskList = () => {
             <li className = "bg-gray-100 px-4 py-2 border-1 border-gray-300 rounded-2xl flex items-start justify-between">
                 <div>
                     <p className = "text-gray-800 font-medium">Finish Appwrite Setup</p>
-                    <span className = "text-xs text-gray-600">Catergory: Work</span>
+                    <span className = "text-xs text-gray-600">Category: Work</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <button className="text-green-500 hover:text-green-700" title="Mark Complete">✔️</button>

@@ -13,8 +13,8 @@ const App = () => {
 
             </div>
             {showModal && <AddTask onClose = {()=> setShowModal(false)}/>}
+            
         </div>
-
     )
 }
 export default App
