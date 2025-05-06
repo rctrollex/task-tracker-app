@@ -22,7 +22,7 @@ A responsive task management tool built with **React**, **Tailwind CSS**, and **
 ## 📦 Setup Instructions
 
 1. Clone the repo  
-   `git clone https://github.com/YOUR_USERNAME/task-tracker-app.git`
+   `git clone https://github.com/rctrollex/task-tracker-app.git`
 
 2. Install dependencies  
    `npm install`
