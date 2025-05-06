@@ -19,6 +19,7 @@ const AddTask = ({onClose}) => {
             const newTask = await databases.createDocument(
                 databaseId,
                 collectionId,
+                'unique()',
                 {
                     title: title,
                     category: category,
