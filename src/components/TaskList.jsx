@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {databaseId,databases,collectionId} from "../appwrite/appwriteConfig.js";
+import {ThreeDot} from "react-loading-indicators";
 
 const TaskList = ({refetchTrigger}) => {
     const [tasks, setTasks] = useState([]);
@@ -25,7 +26,9 @@ const TaskList = ({refetchTrigger}) => {
     }, [refetchTrigger]);//Empty dependency array ensures this runs only once after the initial render.
 
     if(loading){
-        return <p>Loading Tasks....</p>//I should put a loader
+        return <div className="flex items-center justify-around">
+            <ThreeDot variant="bounce" color="#444273" size="medium" text="Wait A moment" textColor="" />
+        </div>;//I should put a loader
     }
 
     if (error){
