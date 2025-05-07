@@ -25,6 +25,27 @@ const TaskList = ({refetchTrigger}) => {
        fetchTasks();
     }, [refetchTrigger]);//Empty dependency array ensures this runs only once after the initial render.
 
+    const handleEdit = async (taskId, isCurrentlyCompleted) =>{
+        try{
+            await databases.updateDocument(
+                databaseId,
+                collectionId,
+                taskId,
+                {isCompleted: !isCurrentlyCompleted}
+            );
+
+            setTasks(prevTasks =>
+                prevTasks.map(task =>
+                    task.$id === taskId?{...task, isCompleted: !isCurrentlyCompleted} : task
+                )
+            )
+        }catch (e) {
+            console.log('Error updating task completion', error)
+            setError('Failed to update task completion')
+        }
+    }
+
+
     if(loading){
         return <div className="flex items-center justify-around">
             <ThreeDot variant="bounce" color="#444273" size="medium" text="Wait A moment" textColor="" />
@@ -43,7 +64,7 @@ const TaskList = ({refetchTrigger}) => {
                         <span className="text-xs text-gray-600">Category: {task.category}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <button className="text-green-500 hover:text-green-700" title="Mark Complete">✔️</button>
+                        <button className="text-green-500 hover:text-green-700" title="Mark Complete" onClick={()=> handleEdit(task.$id, task.isCompleted)}>✔️</button>
                         <button className="text-blue-500 hover:text-blue-700" title="Edit Task">✏️</button>
                         <button className="text-red-500 hover:text-red-700" title="Delete Task">🗑️</button>
                     </div>
