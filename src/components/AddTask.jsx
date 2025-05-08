@@ -36,7 +36,7 @@ const AddTask = ({onClose, taskId, initialTitle = '', initialCategory = ''}) => 
             } else {
                 //add a new task
                 const newTask = await databases.createDocument(
-                    databases,
+                    databaseId,
                     collectionId,
                     'unique()',
                     {
