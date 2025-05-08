@@ -114,7 +114,7 @@ const TaskList = ({refetchTrigger, filterCategory}) => {
                                 <img src={EditIcon} alt = "Edit Icon" className="w-[40px] h-[40px] cursor-pointer"/>
                             </button>
                             <button className="text-red-500 hover:text-red-700" title="Delete Task" onClick={() => handleDelete(task.$id)}>
-                                <img src={DeleteIcon} alt = "Delete Icon" className="w-[30px] h-[30px] cursor-pointer"/>
+                                <img src={DeleteIcon} alt = "Delete Icon" className="w-[30px] h-[30px] cursor-pointer "/>
                             </button>
                         </div>
 

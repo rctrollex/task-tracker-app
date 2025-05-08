@@ -1,10 +1,17 @@
 import React from 'react'
+import TaskLogo from '../assets/task.svg'
 
 const Header = ({onAddClick, onFilterChange}) => {
     return (
         <>
             <div className= "flex items-center justify-between mb-6">
-                <h1 className = "text-2xl font-bold text-gray-800">📝 Task Tracker</h1>
+                <div className="flex justify-start space-x-4">
+                    <img src={TaskLogo}alt = "Logo Icon" className="w-[40px] h-[40px]"/>
+                    <h1 className = "text-2xl font-bold text-gray-800">
+                         Task Tracker
+                    </h1>
+                </div>
+
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-2xl hover:bg-blue-700 cursor-pointer focus:bg-blue-500"
                         onClick={onAddClick}>Add Task
                 </button>
