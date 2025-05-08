@@ -25,7 +25,7 @@ A responsive task management tool built with **React**, **Tailwind CSS**, and **
    `git clone https://github.com/rctrollex/task-tracker-app.git`
 
 2. Install dependencies  
-   `npm install`
+   `npm install` 
 
 3. Set up Appwrite project and environment variables  
    Create a `.env` file with:
