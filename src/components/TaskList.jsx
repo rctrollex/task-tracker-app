@@ -3,7 +3,7 @@ import {databaseId,databases,collectionId} from "../appwrite/appwriteConfig.js";
 import {ThreeDot} from "react-loading-indicators";
 import AddTask from "./AddTask.jsx";
 
-const TaskList = ({refetchTrigger}) => {
+const TaskList = ({refetchTrigger, filterCategory}) => {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -80,6 +80,10 @@ const TaskList = ({refetchTrigger}) => {
        setEditingTask(null);
     }
 
+    const filteredTasks = filterCategory === 'all'
+        ? tasks
+        : tasks.filter(task=>task.category.toLowerCase()===filterCategory);
+
     if(loading){
         return <div className="flex items-center justify-around">
             <ThreeDot variant="bounce" color="#444273" size="medium" text="Wait A moment" textColor="" />
@@ -89,10 +93,11 @@ const TaskList = ({refetchTrigger}) => {
     if (error){
         return <p className="text-red-500">{error}</p>
     }
+
     return (
         <>
             <ul className ="space-y-4">
-                {tasks.map((task) =>(
+                {filteredTasks.map((task) =>(
                     <li key = {task.$id} className="bg-gray-100 px-4 py-2 border border-gray-300 rounded-2xl flex items-start justify-between">
                         <div>
                             <p className={`text-gray-800 font-medium ${task.isCompleted ? 'line-through' : ''}`}>{task.title}</p>
