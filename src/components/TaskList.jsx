@@ -70,6 +70,16 @@ const TaskList = ({refetchTrigger}) => {
     const handleCloseModal = () =>{
         setEditingTask(null)
     }
+    //New callback to update task State after editing
+    const handleTaskUpdated = (updateTask)=>{
+       setTasks(prevTasks=>
+           prevTasks.map(task=>
+             task.$id === updateTask.$id?{...task, ...updateTask}:task
+           )
+       ) ;
+       setEditingTask(null);
+    }
+
     if(loading){
         return <div className="flex items-center justify-around">
             <ThreeDot variant="bounce" color="#444273" size="medium" text="Wait A moment" textColor="" />
@@ -103,6 +113,7 @@ const TaskList = ({refetchTrigger}) => {
                     taskId={editingTask.$id}
                     initialTitle={editingTask.title}
                     initialCategory={editingTask.category}
+                    onTaskUpdated={handleTaskUpdated} //Pass the callback
                 />
             )}
         </>

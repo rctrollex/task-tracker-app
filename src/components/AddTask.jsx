@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {databases,collectionId,databaseId} from "../appwrite/appwriteConfig.js";
 
-const AddTask = ({onClose, taskId, initialTitle = '', initialCategory = ''}) => {
+const AddTask = ({onClose, taskId, initialTitle = '', initialCategory = '',onTaskUpdated}) => {
     const [errorMessage, setErrorMessage] =useState('');
     const [title, setTitle] = useState(initialTitle);
     const [category, setCategory] = useState(initialCategory);
@@ -32,6 +32,8 @@ const AddTask = ({onClose, taskId, initialTitle = '', initialCategory = ''}) => 
                         category: category
                     }
                 );
+                //Call the callback to update the task state in TaskList
+                onTaskUpdated(updatedTask);
                 console.log('Task updated: ', updatedTask);
             } else {
                 //add a new task
