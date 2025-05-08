@@ -8,25 +8,25 @@ const TaskList = ({refetchTrigger}) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-       const fetchTasks = async() =>{
-           try{
-               const response = await databases.listDocuments(
-                   databaseId,
-                   collectionId
-               );
-               setTasks(response.documents);
-               setLoading(false);
-           }catch (e) {
-               console.log('Error fetching tasks: ',e)
-               setError('Failed to load tasks.');
-               setLoading(false);
-           }
-       }
-       fetchTasks();
+        const fetchTasks = async () => {
+            try {
+                const response = await databases.listDocuments(
+                    databaseId,
+                    collectionId
+                );
+                setTasks(response.documents);
+                setLoading(false);
+            } catch (e) {
+                console.log('Error fetching tasks: ', e)
+                setError('Failed to load tasks.');
+                setLoading(false);
+            }
+        }
+        fetchTasks();
     }, [refetchTrigger]);//Empty dependency array ensures this runs only once after the initial render.
 
-    const handleEdit = async (taskId, isCurrentlyCompleted) =>{
-        try{
+    const handleEdit = async (taskId, isCurrentlyCompleted) => {
+        try {
             await databases.updateDocument(
                 databaseId,
                 collectionId,
@@ -36,15 +36,30 @@ const TaskList = ({refetchTrigger}) => {
 
             setTasks(prevTasks =>
                 prevTasks.map(task =>
-                    task.$id === taskId?{...task, isCompleted: !isCurrentlyCompleted} : task
+                    task.$id === taskId ? {...task, isCompleted: !isCurrentlyCompleted} : task
                 )
             )
-        }catch (e) {
+        } catch (error) {
             console.log('Error updating task completion', error)
             setError('Failed to update task completion')
         }
     }
 
+    const handleDelete = async (taskId) =>{
+        try{
+            await databases.deleteDocument(
+                databaseId,
+                collectionId,
+                taskId
+            );
+            setTasks(prevTask =>
+                prevTask.filter((task) => task.$id !==taskId)
+            )
+        }catch (e) {
+            console.log("Error deleting task: ", e)
+            setError("Failed to delete task.")
+        }
+    }
 
     if(loading){
         return <div className="flex items-center justify-around">
@@ -66,7 +81,7 @@ const TaskList = ({refetchTrigger}) => {
                     <div className="flex items-center gap-2">
                         <button className="text-green-500 hover:text-green-700" title="Mark Complete" onClick={()=> handleEdit(task.$id, task.isCompleted)}>✔️</button>
                         <button className="text-blue-500 hover:text-blue-700" title="Edit Task">✏️</button>
-                        <button className="text-red-500 hover:text-red-700" title="Delete Task">🗑️</button>
+                        <button className="text-red-500 hover:text-red-700" title="Delete Task" onClick={() => handleDelete(task.$id)}>🗑️</button>
                     </div>
 
                 </li>
