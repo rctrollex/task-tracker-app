@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {databaseId,databases,collectionId} from "../appwrite/appwriteConfig.js";
 import {ThreeDot} from "react-loading-indicators";
+import AddTask from "./AddTask.jsx";
 
 const TaskList = ({refetchTrigger}) => {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [editingTask, setEditingTask] = useState(null)
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -25,7 +27,7 @@ const TaskList = ({refetchTrigger}) => {
         fetchTasks();
     }, [refetchTrigger]);//Empty dependency array ensures this runs only once after the initial render.
 
-    const handleEdit = async (taskId, isCurrentlyCompleted) => {
+    const handleComplete = async (taskId, isCurrentlyCompleted) => {
         try {
             await databases.updateDocument(
                 databaseId,
@@ -61,6 +63,13 @@ const TaskList = ({refetchTrigger}) => {
         }
     }
 
+    const handleEdit = (task) =>{
+        setEditingTask(task)
+    };
+
+    const handleCloseModal = () =>{
+        setEditingTask(null)
+    }
     if(loading){
         return <div className="flex items-center justify-around">
             <ThreeDot variant="bounce" color="#444273" size="medium" text="Wait A moment" textColor="" />
@@ -71,22 +80,33 @@ const TaskList = ({refetchTrigger}) => {
         return <p className="text-red-500">{error}</p>
     }
     return (
-        <ul className ="space-y-4">
-            {tasks.map((task) =>(
-                <li key = {task.$id} className="bg-gray-100 px-4 py-2 border border-gray-300 rounded-2xl flex items-start justify-between">
-                    <div>
-                        <p className={`text-gray-800 font-medium ${task.isCompleted ? 'line-through' : ''}`}>{task.title}</p>
-                        <span className="text-xs text-gray-600">Category: {task.category}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <button className="text-green-500 hover:text-green-700" title="Mark Complete" onClick={()=> handleEdit(task.$id, task.isCompleted)}>✔️</button>
-                        <button className="text-blue-500 hover:text-blue-700" title="Edit Task">✏️</button>
-                        <button className="text-red-500 hover:text-red-700" title="Delete Task" onClick={() => handleDelete(task.$id)}>🗑️</button>
-                    </div>
+        <>
+            <ul className ="space-y-4">
+                {tasks.map((task) =>(
+                    <li key = {task.$id} className="bg-gray-100 px-4 py-2 border border-gray-300 rounded-2xl flex items-start justify-between">
+                        <div>
+                            <p className={`text-gray-800 font-medium ${task.isCompleted ? 'line-through' : ''}`}>{task.title}</p>
+                            <span className="text-xs text-gray-600">Category: {task.category}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button className="text-green-500 hover:text-green-700" title="Mark Complete" onClick={()=> handleComplete(task.$id, task.isCompleted)}>✔️</button>
+                            <button className="text-blue-500 hover:text-blue-700" title="Edit Task" onClick={() => handleEdit(task)}>✏️</button>
+                            <button className="text-red-500 hover:text-red-700" title="Delete Task" onClick={() => handleDelete(task.$id)}>🗑️</button>
+                        </div>
 
-                </li>
-            ))}
-        </ul>
+                    </li>
+                ))}
+            </ul>
+            {editingTask && (
+                <AddTask
+                    onClose={handleCloseModal}
+                    taskId={editingTask.$id}
+                    initialTitle={editingTask.title}
+                    initialCategory={editingTask.category}
+                />
+            )}
+        </>
+
 
     )
 }
